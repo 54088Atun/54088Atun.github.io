@@ -1,0 +1,35 @@
+/* 自定义Tailwind工具类 */
+@layer utilities {
+    .content-auto {
+        content-visibility: auto; /* 优化渲染性能，仅渲染可视区域内容 */
+    }
+}
+
+/* AI悬浮窗额外样式 */
+#aiChatWidget {
+  width: 360px;
+}
+
+#chatMessages {
+  font-size: 14px;
+}
+
+/* 自定义滚动条样式（提升美观度） */
+#chatMessages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+#chatMessages::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+    
