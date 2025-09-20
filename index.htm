@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - luotun.xin</title>
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 对接讯飞 Spark Lite API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <!-- 引入外部CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1F2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50">
+    <!-- 导航栏 -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary flex items-center">
+                <i class="fa fa-home mr-2"></i>
+                <span>luotun.xin</span>
+            </a>
+            
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="font-medium hover:text-primary transition-all duration-300">首页</a>
+                <a href="#about" class="font-medium hover:text-primary transition-all duration-300">关于</a>
+                <a href="#services" class="font-medium hover:text-primary transition-all duration-300">服务</a>
+                <a href="#contact" class="font-medium hover:text-primary transition-all duration-300">联系我们</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-gray-700 focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="font-medium py-2 hover:text-primary transition-all duration-300">首页</a>
+                <a href="#about" class="font-medium py-2 hover:text-primary transition-all duration-300">关于</a>
+                <a href="#services" class="font-medium py-2 hover:text-primary transition-all duration-300">服务</a>
+                <a href="#contact" class="font-medium py-2 hover:text-primary transition-all duration-300">联系我们</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-dark mb-4">
+                        欢迎来到 <span class="text-primary">luotun.xin</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                        这是一个基于luotun.xin域名的网站，我们提供专业的服务和解决方案，满足您的各种需求。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 transition-all duration-300 font-medium">
+                            联系我们
+                        </a>
+                        <a href="#services" class="px-6 py-3 bg-white text-primary border border-primary rounded-lg hover:bg-gray-50 transition-all duration-300 font-medium">
+                            了解服务
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/seed/luotun/600/400" alt="罗屯风景或相关图片" class="rounded-xl shadow-xl w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">关于我们</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/seed/about/500/400" alt="关于我们的图片" class="rounded-xl shadow-lg w-full h-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-dark">我们的故事</h3>
+                    <p class="text-gray-600 mb-4">
+                        luotun.xin致力于为用户提供高质量的服务和内容。我们的团队由专业人士组成，拥有丰富的经验和专业知识，能够满足您的各种需求。
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        无论您是个人用户还是企业客户，我们都将为您提供量身定制的解决方案，帮助您实现目标。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <i class="fa fa-check text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">专业服务</h4>
+                                <p class="text-gray-600 text-sm">经验丰富的团队</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <i class="fa fa-clock-o text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">及时响应</h4>
+                                <p class="text-gray-600 text-sm">快速解决问题</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <i class="fa fa-lightbulb-o text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">创新思维</h4>
+                                <p class="text-gray-600 text-sm">提供新颖解决方案</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                <i class="fa fa-users text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">客户至上</h4>
+                                <p class="text-gray-600 text-sm">重视客户需求</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务区域 -->
+    <section id="services" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">我们的服务</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">我们提供多种专业服务，满足您在不同领域的需求</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 服务卡片1 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-primary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">网站开发</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供专业的网站设计与开发服务，包括企业官网、电商平台、个人博客等各类网站建设。
+                    </p>
+                    <a href="#contact" class="text-primary font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片2 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-secondary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-mobile text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">移动应用</h3>
+                    <p class="text-gray-600 mb-4">
+                        开发适配各种移动设备的应用程序，提供流畅的用户体验和丰富的功能。
+                    </p>
+                    <a href="#contact" class="text-secondary font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片3 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-accent/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-line-chart text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">数字营销</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供全面的数字营销解决方案，帮助您提升品牌知名度和产品销量。
+                    </p>
+                    <a href="#contact" class="text-accent font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片4 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-primary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-paint-brush text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">UI/UX设计</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供专业的用户界面和用户体验设计服务，打造美观易用的产品。
+                    </p>
+                    <a href="#contact" class="text-primary font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片5 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-secondary/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-search text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">SEO优化</h3>
+                    <p class="text-gray-600 mb-4">
+                        通过专业的搜索引擎优化技术，提高您的网站在搜索引擎中的排名。
+                    </p>
+                    <a href="#contact" class="text-secondary font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片6 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border border-gray-100">
+                    <div class="bg-accent/10 w-14 h-14 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fa fa-shield text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-dark">网络安全</h3>
+                    <p class="text-gray-600 mb-4">
+                        提供全面的网络安全解决方案，保护您的网站和数据免受各种安全威胁。
+                    </p>
+                    <a href="#contact" class="text-accent font-medium inline-flex items-center hover:underline">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-4">联系我们</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">有任何问题或需求，请随时联系我们，我们将尽快回复您</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/3">
+                    <div class="bg-gray-50 rounded-xl p-6 h-full">
+                        <h3 class="text-xl font-semibold mb-6 text-dark">联系方式</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                    <i class="fa fa-map-marker text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">地址</h4>
+                                    <p class="text-gray-600">中国 重庆</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                    <i class="fa fa-phone text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">电话</h4>
+                                    <p class="text-gray-600">+86 123 4567 8910</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                                    <i class="fa fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">邮箱</h4>
+                                    <p class="text-gray-600">info@luotun.xin</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h4 class="font-semibold mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                    <i class="fa fa-weixin"></i>
+                                </a>
+                                <a href="#" class="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                    <i class="fa fa-weibo"></i>
+                                </a>
+                                <a href="#" class="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                    <i class="fa fa-qq"></i>
+                                </a>
+                                <a href="#" class="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                    <i class="fa fa-youtube-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-2/3">
+                    <form class="bg-gray-50 rounded-xl p-6 md:p-8">
+                        <h3 class="text-xl font-semibold mb-6 text-dark">发送消息</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300" placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">邮箱</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300" placeholder="请输入您的邮箱">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">主题</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300" placeholder="请输入消息主题">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">消息内容</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 resize-none" placeholder="请输入您的消息内容"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="px-6 py-3 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 transition-all duration-300 font-medium">
+                            发送消息
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI问答组件 -->
+    <div id="aiWidgetContainer" class="fixed bottom-8 right-8 z-50">
+        <!-- 球形按钮（始终显示，可拖拽） -->
+        <div id="aiButton" class="w-16 h-16 bg-primary rounded-full shadow-lg flex items-center justify-center text-white cursor-move hover:bg-primary/90 hover:scale-110 transition-all duration-300">
+            <i class="fa fa-comments text-2xl"></i>
+        </div>
+
+        <!-- 问答窗口（默认隐藏） -->
+        <div id="aiChatWidget" class="absolute bottom-20 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col transition-all duration-300 transform scale-90 opacity-0 pointer-events-none z-50">
+            <!-- 窗口标题栏 -->
+            <div id="widgetHeader" class="bg-primary text-white p-3 rounded-t-lg flex justify-between items-center">
+                <h3 class="font-medium">AI 问答</h3>
+                <button id="closeWidget" class="text-white hover:text-gray-200">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <!-- 对话消息区域 -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto max-h-64 space-y-2 text-sm">
+                <!-- 初始提示 -->
+                <div class="text-center text-gray-500">
+                    您好！我是AI助手，有问题可以问我～
+                </div>
+            </div>
+            <!-- 输入与发送区域 -->
+            <div class="p-3 border-t border-gray-200">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="请输入您的问题..." 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                >
+                <button 
+                    id="sendMessage" 
+                    class="mt-2 w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                    发送
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-home mr-2"></i> luotun.xin
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        为您提供专业的服务和解决方案，满足您的各种需求。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-all duration-300">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-all duration-300">首页</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-all duration-300">关于我们</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-all duration-300">我们的服务</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-all duration-300">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">服务</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all duration-300">网站开发</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all duration-300">移动应用</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all duration-300">数字营销</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-all duration-300">UI/UX设计</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">中国 重庆</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-phone text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">+86 123 4567 8910</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-envelope text-gray-400 mt-1 mr-3"></i>
+                            <span class="text-gray-400">info@luotun.xin</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 luotun.xin. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- 引入外部JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
+    
